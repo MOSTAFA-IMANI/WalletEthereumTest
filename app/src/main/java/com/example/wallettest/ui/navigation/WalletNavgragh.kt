@@ -5,6 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
+import com.example.wallettest.ui.feature.home.homeScreen
+import com.example.wallettest.ui.feature.home.navigateToHome
 import com.example.wallettest.ui.feature.splash.splashNavigationRoute
 import com.example.wallettest.ui.feature.splash.splashScreen
 
@@ -21,8 +24,11 @@ fun DuckWalletNavgraph(
         startDestination = splashNavigationRoute
     ) {
         splashScreen(
-            navigateToHome = {},
+            navigateToHome = {navController.navigateToHome(navOptions {
+                popUpTo(splashNavigationRoute) { inclusive = true }
+            })},
         )
+        homeScreen {  }
 
     }
 

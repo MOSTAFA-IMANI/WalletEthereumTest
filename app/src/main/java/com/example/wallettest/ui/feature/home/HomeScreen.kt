@@ -65,7 +65,7 @@ fun HomeScreen(
         MnemonicCode(mnemonicList)
         AddressBox(walletAddress)
         PrivateKeyBox(walletPrivateKey)
-        ControlButtons(regenerateWallet)
+        ControlButtons(regenerateWallet,navigateToSign)
     }
     when(state) {
         HomeUiState.Loading -> {
@@ -81,7 +81,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun ControlButtons(regenerateWallet: () -> Unit) {
+fun ControlButtons(regenerateWallet: () -> Unit, navigateToSign: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -89,6 +89,9 @@ fun ControlButtons(regenerateWallet: () -> Unit) {
     ) {
         Button(onClick = regenerateWallet) {
             Text(text = stringResource(id = R.string.regenerate))
+        }
+        Button(onClick = navigateToSign) {
+            Text(text = stringResource(id = R.string.signMessage_title))
         }
     }
 }

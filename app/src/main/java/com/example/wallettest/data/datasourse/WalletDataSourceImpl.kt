@@ -1,13 +1,14 @@
 package com.example.wallettest.data.datasourse
 
-import org.apache.commons.lang3.RandomStringUtils
+import android.util.Log
 import org.web3j.crypto.Bip32ECKeyPair
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.MnemonicUtils
+import org.web3j.crypto.Sign
 import org.web3j.utils.Numeric
-import java.security.SecureRandom
-import java.util.Random
+import java.nio.charset.StandardCharsets
 import javax.inject.Inject
+
 
 class WalletDataSourceImpl @Inject constructor() : WalletDataSource {
     private lateinit var mnemonicList:List<String>
@@ -61,6 +62,16 @@ class WalletDataSourceImpl @Inject constructor() : WalletDataSource {
             generateNewWallet()
             Numeric.toHexStringNoPrefix(credentials.ecKeyPair.publicKey)
 
+        }
+    }
+
+    override fun signMessage(inputMessage: String): Sign.SignatureData {
+        val messageBytes: ByteArray = inputMessage.toByteArray(StandardCharsets.UTF_8)
+        return if (this::credentials.isInitialized){
+            Sign.signPrefixedMessage(messageBytes, credentials.ecKeyPair)
+        } else{
+            generateNewWallet()
+            Sign.signPrefixedMessage(messageBytes, credentials.ecKeyPair)
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.wallettest.data.datasourse
 
+import org.web3j.crypto.Sign
+
 interface WalletDataSource {
 
      fun generateNewWallet(
@@ -15,5 +17,7 @@ interface WalletDataSource {
     fun getWalletPrivateKey(): String
 
     fun getWalletPublicKey(): String
+
+    fun signMessage(inputMessage:String): Sign.SignatureData
 
 }

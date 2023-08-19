@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.example.wallettest.ui.feature.home.homeScreen
 import com.example.wallettest.ui.feature.home.navigateToHome
+import com.example.wallettest.ui.feature.sign.navigateToSign
+import com.example.wallettest.ui.feature.sign.signScreen
 import com.example.wallettest.ui.feature.splash.splashNavigationRoute
 import com.example.wallettest.ui.feature.splash.splashScreen
 
@@ -28,8 +30,8 @@ fun DuckWalletNavgraph(
                 popUpTo(splashNavigationRoute) { inclusive = true }
             })},
         )
-        homeScreen {  }
-
+        homeScreen (navigateToSign = {navController.navigateToSign()})
+        signScreen()
     }
 
 }

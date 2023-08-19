@@ -3,6 +3,12 @@
     <string name="mnemonic_title">"Mnemonic List : "</string>
     <string name="address_title">Address</string>
     <string name="privateKey_title">Private Key</string>
-    <string name="regenerate">Regenarate</string>
+    <string name="regenerate">Re-Generate</string>
     <string name="copiedText">Selected Text has been copied successfully</string>
+    <string name="inputMessage_title">Input Message:</string>
+    <string name="signedHex_title">Signed Hex:</string>
+    <string name="signedR_title">resulting point on the elliptic curve (R)</string>
+    <string name="signedS_title">value derived from  PK and input (S)</string>
+    <string name="signedV_title">recovery id or the chain ID value (V)</string>
+    <string name="signMessage_title">Sign a Message</string>
 </resources>

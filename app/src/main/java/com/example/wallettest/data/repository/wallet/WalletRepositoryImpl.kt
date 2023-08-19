@@ -6,7 +6,7 @@ import javax.inject.Inject
 class WalletRepositoryImpl @Inject constructor(
     private val walletDataSource: WalletDataSource
 ) : WalletRepository {
-    override fun generateWallet() =
+    override suspend fun generateWallet() =
          walletDataSource.generateNewWallet()
 
 

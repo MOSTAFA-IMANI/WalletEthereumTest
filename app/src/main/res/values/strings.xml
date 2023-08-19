@@ -3,4 +3,6 @@
     <string name="mnemonic_title">"Mnemonic List : "</string>
     <string name="address_title">Address</string>
     <string name="privateKey_title">Private Key</string>
+    <string name="regenerate">Regenarate</string>
+    <string name="copiedText">Selected Text has been copied successfully</string>
 </resources>

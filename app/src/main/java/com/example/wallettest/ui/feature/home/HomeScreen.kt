@@ -1,9 +1,13 @@
 package com.example.wallettest.ui.feature.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,8 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.wallettest.R
+import com.example.wallettest.ui.theme.componnent.CircularLoading
 import com.example.wallettest.ui.theme.componnent.SelectableBox
 
+private const val TAG = "HomeScreen"
 
 @Composable
 fun HomeRoute(
@@ -24,44 +30,74 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    Log.d(TAG, "HomeRoute: $state")
+
+    Log.d(TAG, "HomeRoute: Data : ${viewModel.getMnemonicList()}")
     HomeScreen(
         navigateToSign = navigateToSign,
         modifier = modifier,
         state = state,
         mnemonicList = viewModel.getMnemonicList(),
         walletAddress = viewModel.getWalletAddress(),
-        walletPrivateKey =viewModel.getWalletPrivateKey()
+        walletPrivateKey = viewModel.getWalletPrivateKey(),
+        regenerateWallet = viewModel::generateNewWalletInfo
     )
 }
+
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToSign: () -> Unit,
     mnemonicList: List<String>,
-    state: HomeUiState,
     walletAddress: String,
     walletPrivateKey: String,
+    regenerateWallet: () -> Unit,
+    state: HomeUiState,
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(10.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(10.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MnemonicCode(mnemonicList)
         AddressBox(walletAddress)
         PrivateKeyBox(walletPrivateKey)
+        ControlButtons(regenerateWallet)
     }
+    when(state) {
+        HomeUiState.Loading -> {
+            Log.d(TAG, "HomeRoute:Loading")
+            CircularLoading()
+        }
 
+        HomeUiState.WalletData -> {
+            Log.d(TAG, "HomeRoute:WalletData")
 
+        }
+    }
+}
+
+@Composable
+fun ControlButtons(regenerateWallet: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Button(onClick = regenerateWallet) {
+            Text(text = stringResource(id = R.string.regenerate))
+        }
+    }
 }
 
 @Composable
 fun PrivateKeyBox(walletPrivateKey: String) {
     SelectableBox(
-        title= stringResource(id = R.string.privateKey_title),
-        description=walletPrivateKey,
-        onClick={},
+        title = stringResource(id = R.string.privateKey_title),
+        description = walletPrivateKey,
     )
 }
 
@@ -70,23 +106,15 @@ fun AddressBox(walletAddress: String) {
     SelectableBox(
         title= stringResource(id = R.string.address_title),
         description=walletAddress,
-        onClick={},
     )
 }
 
 @Composable
 fun MnemonicCode(mnemonicList: List<String>) {
+
     SelectableBox(
     title= stringResource(id = R.string.mnemonic_title),
     description=mnemonicList,
-    onClick={},
     )
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}

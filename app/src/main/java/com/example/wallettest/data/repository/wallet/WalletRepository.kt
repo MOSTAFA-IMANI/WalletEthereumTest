@@ -1,7 +1,7 @@
 package com.example.wallettest.data.repository.wallet
 
 interface WalletRepository {
-    fun generateWallet()
+    suspend fun generateWallet()
 
     fun getMnemonicCodeList(): List<String>
 

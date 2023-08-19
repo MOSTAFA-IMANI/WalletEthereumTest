@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.wallettest.ui.theme.componnent.CircularLoading
 
 
 @Composable
@@ -39,25 +40,7 @@ fun SplashScreen(
     navigateToHome: () -> Unit,
     state: SplashUiState,
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-
-        val strokeWidth = 5.dp
-        val color = MaterialTheme.colorScheme.primary
-        CircularProgressIndicator(
-            modifier = modifier.drawBehind {
-                drawCircle(
-                    color = color,
-                    radius = size.width / 2 - strokeWidth.toPx() / 2,
-                    style = Stroke(strokeWidth.toPx())
-                )
-            },
-            color = Color.LightGray,
-            strokeWidth = strokeWidth
-        )
-    }
+    CircularLoading(modifier)
     when (state) {
         SplashUiState.Loading -> {
 

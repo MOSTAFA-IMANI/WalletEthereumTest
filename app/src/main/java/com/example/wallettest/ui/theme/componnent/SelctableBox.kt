@@ -1,5 +1,6 @@
 package com.example.wallettest.ui.theme.componnent
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,9 +15,11 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.wallettest.ui.util.extension.copyTextToClipboard
 
 
 @Composable
@@ -24,15 +27,13 @@ fun SelectableBox(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
-    onClick: () -> Unit,
+    context :Context = LocalContext.current,
+    onClick: () -> Unit = {context.copyTextToClipboard(title,description)},
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = contentColorFor(backgroundColor),
     textAlign: TextAlign? = TextAlign.Start,
     titleStyle: TextStyle = MaterialTheme.typography.bodyLarge,
-    descriptionStyle: TextStyle =  MaterialTheme.typography.bodyMedium,
-
-
-    ) {
+    descriptionStyle: TextStyle =  MaterialTheme.typography.bodyMedium, ) {
     Column {
         Text(text = title, style = titleStyle)
         ClickableText(
@@ -50,14 +51,12 @@ fun SelectableBox(
     modifier: Modifier = Modifier,
     title: String,
     description: List<String>,
-    onClick: () -> Unit,
+    context :Context = LocalContext.current,
+    onClick: () -> Unit = {context.copyTextToClipboard(title,description.joinToString())},
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = contentColorFor(backgroundColor),
-    textAlign: TextAlign? = TextAlign.Start,
     titleStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     descriptionStyle: TextStyle =  MaterialTheme.typography.bodyMedium,
-
-
     ) {
     Column {
         Text(text = title, style = titleStyle)

@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
     @Binds
+    @Singleton
     fun provideWalletRepository(repository: WalletRepositoryImpl): WalletRepository
 
 }

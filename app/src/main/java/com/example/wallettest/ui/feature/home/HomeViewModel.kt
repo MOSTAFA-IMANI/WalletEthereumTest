@@ -13,23 +13,29 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Loading)
-
     val uiState: StateFlow<HomeUiState> = _uiState
 
+
+    init {
+        generateNewWalletInfo()
+    }
     fun navigateToSignScreen() {
         _uiState.value = HomeUiState.NavigateToSign
 
     }
+    fun generateNewWalletInfo(){
+        walletRepository.generateWallet()
+    }
 
     fun getMnemonicList(): List<String> {
-        return walletRepository.generateMnemonicCodeList()
+        return walletRepository.getMnemonicCodeList()
     }
 
     fun getWalletAddress(): String {
-        return "test.testtest.testtest.testtest.testtest.testtest.test"
+        return walletRepository.getWalletAddress()
     }
 
     fun getWalletPrivateKey(): String {
-        return "test.testtest.testtest.testtest.test"
+        return walletRepository.getWalletPrivateKey()
     }
 }

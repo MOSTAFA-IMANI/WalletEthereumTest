@@ -85,6 +85,7 @@ dependencies {
 
     //web3j for Ethereum wallet utils
     implementation 'org.web3j:core:4.1.0-android'
+    implementation  'org.apache.commons:commons-lang3:3.0'
 
 
 }

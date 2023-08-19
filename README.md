@@ -106,7 +106,7 @@ total time on project is about 12:00 hr
 
 you can find the output apk file in below url :
 
-- [SampleTest.apk](https://github.com/MOSTAFA-IMANI/WalletEthereumTest/blob/master/sample/apks/app-debug-sample.apk)
+- [SampleTest.apk](https://github.com/MOSTAFA-IMANI/WalletEthereumTest/blob/master/sample/apks/app-debug.apk)
 
 
 <!-- Contributing -->
